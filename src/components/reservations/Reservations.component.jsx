@@ -16,7 +16,8 @@ export default function Reservations() {
 
 return(
     <Container style={{backgroundColor: "black"}}>
-     {reservations && reservations.map(r => {
+     {reservations && reservations.lenth !==0 ?
+      reservations.map(r => {
        return <Card key={r.reservationId} className="reservationform-card">
                 <div className="reservationform-body">
                 <div className="reserv-user-info">
@@ -46,7 +47,7 @@ return(
                         })}
                 </div>
             </Card>
-        })} 
+        }): null} 
     </Container>
     );
 }
