@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Card from 'react-bootstrap/Card'
 import { Container, Button, Alert } from 'react-bootstrap';
 import "./SearchResults.style.scss";
 import moment from 'moment';
 import {default as UUID} from "node-uuid";
-import { useState } from 'react';
+import  propTypes  from 'prop-types';
 
 export const toLocalTime = (datetime) => {
   return new Date(datetime)
@@ -48,12 +48,10 @@ export default function SearchResults({
       
     }, []);
     if (reservations.length !== 0) {
-      const oldArray = localStorage.getItem('reservations') ? localStorage.getItem('reservations') : "[]";
+      const oldArray = sessionStorage.getItem('reservations') ? sessionStorage.getItem('reservations') : "[]";
       const reservationsArray = JSON.parse(oldArray);
       reservationsArray.push(reservations);
-      localStorage.setItem('reservations', JSON.stringify(reservationsArray));
-      //setAlert(true);
-
+      sessionStorage.setItem('reservations', JSON.stringify(reservationsArray));
     }
   }
   
@@ -62,10 +60,9 @@ export default function SearchResults({
       { searchResults && searchResults.length !== 0 ?
         <Container className="searchContainer">
            {alert ?
-                       <Alert variant="success">
-                         Booking was successful
-                       </Alert>
-                       : null}
+              <Alert variant="success">
+                Booking was successful. To see your bookings:  <Alert.Link href="/reservForm">Tickets</Alert.Link>
+              </Alert> : null}
           {searchResults.map( route => {
             return route.providers.map(pro => {
               return <Card key={pro.id} className="result_card">
@@ -94,4 +91,9 @@ export default function SearchResults({
       </Container>: null }
     </React.Fragment>
   );
+}
+
+SearchResults.propTypes = {
+  searchResults: propTypes.array,
+  validUntil: propTypes.string
 }

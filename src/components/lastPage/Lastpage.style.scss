@@ -1,0 +1,17 @@
+.lastPageCard {
+    font-size: 30px;
+    background-color: antiquewhite !important;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    padding: 60px;
+    top: 60px;
+    text-transform: uppercase;
+    flex-direction: row;
+    svg {
+        height: 5em;
+        width: 10rem;
+        margin-left: 80px;
+
+    }
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import './RegistrationForm.style.scss';
-import ReservationForm from '../../reservationForm/ReservationForm.component';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {default as UUID} from "node-uuid";
+import ReservationsTable from '../../../components/reservationsTable/ReservationsTable.component';
 
 
 const findFareTotal = (query) => {
@@ -24,8 +24,6 @@ const findFareTotal = (query) => {
   }
 }
 
-
-
 export default function RegistretionForm() {
 
   const [user, setUser] = useState({
@@ -35,27 +33,25 @@ export default function RegistretionForm() {
   });
   
   const [validated, setValidated] = useState(false);
-  const [total, setTotal] = useState("");
+  const [total, setTotal] = useState();
   const [reservations, setReservations] = useState();
   const history = useHistory();
 
   const handleChange = (event) => {
-    
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
     setUser(values => ({
       ...values,
       [event.target.name]: event.target.value
     }));
-    setValidated(true);
 
+    if(user.lastName
+       && user.firstName
+       && user.email !== 0 
+       && reservations.length !== 0)
+      setValidated(true);
   }
    
   useEffect(() => {
-    const fetchedReservations = JSON.parse(localStorage.getItem("reservations")) || [];
+    const fetchedReservations = JSON.parse(sessionStorage.getItem("reservations")) || [];
     setReservations(fetchedReservations);
   }, [])
   
@@ -64,23 +60,18 @@ export default function RegistretionForm() {
       setTotal(findFareTotal(reservations));
     }
   }, [reservations])
-  
- 
-  
+   
   const deleteResevation = (reservationId) => {
-    const oldArray = localStorage.getItem('reservations') ? localStorage.getItem('reservations') : "[]";
+    const oldArray = sessionStorage.getItem('reservations') ? sessionStorage.getItem('reservations') : "[]";
     const reservationsArray = JSON.parse(oldArray);
     let deletedBooking = reservationsArray.map(r => r.filter(m => m.reservationId !== reservationId))
     reservationsArray.splice(deletedBooking, 1);
-    localStorage.setItem("reservations", JSON.stringify(reservationsArray));
+    sessionStorage.setItem("reservations", JSON.stringify(reservationsArray));
     setReservations(reservationsArray);
   }
   
   const saveReservation = (event) => {
     event.preventDefault();
-    if ( reservations.length === 0) {
-      return;
-    }
     const reservationId = UUID.v1()
     const saveReservation = [{
       reserv: reservations,
@@ -94,22 +85,18 @@ export default function RegistretionForm() {
         const reservationsArray = JSON.parse(oldArray);
         reservationsArray.push(saveReservation);
         localStorage.setItem('savedReservations', JSON.stringify(reservationsArray));
-        localStorage.removeItem('reservations');
-        history.push('/userReservations');
+        history.push('/lastPage');
       } else {
         localStorage.setItem('savedReservations', JSON.stringify(saveReservation));
-        localStorage.removeItem('reservations');
-        history.push('/userReservations');
+        history.push('/lastPage');
       }
     }
   }
- 
 
-   
-    return(
-      <React.Fragment>
-        <Form className="customForm" noValidate validated={validated}>
-          <h4 className="form-title"> User Details: </h4>
+  return(
+    <React.Fragment>
+      <Form className="customForm" noValidate validated={validated} onSubmit={saveReservation}>
+        <h4 className="form-title"> User Details: </h4>
           <Form.Group className="custom_formGroup" controlId="firstName">
             <Form.Label>First name</Form.Label>
             <Form.Control
@@ -117,41 +104,49 @@ export default function RegistretionForm() {
               minLength={3}
               type="text"
               name="firstName"
+              value={user.firstName}
               placeholder="Enter your first name"
               onChange={handleChange} />
-              
+              <Form.Control.Feedback type="invalid">
+                A name is required
+              </Form.Control.Feedback>
             </Form.Group>
           <Form.Group className="custom_formGroup" controlId="lastName">
-  
-    <Form.Label>Last Name</Form.Label>
-    <Form.Control
-    name="lastName"
-     required
-     minLength={3}
-     type="text"
-     placeholder="lastname"
-     onChange={handleChange} />
-  </Form.Group>
-  <Form.Group className="custom_formGroup" controlId="firstName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              name="lastName"
+              required
+              minLength={3}
+              type="text"
+              value={user.lastName}
+              placeholder="Enter your last name"
+              onChange={handleChange} />
+              <Form.Control.Feedback type="invalid">
+                A last name is required
+              </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group className="custom_formGroup" controlId="firstName">
             <Form.Label>Email</Form.Label>
             <Form.Control
               required
               minLength={3}
               type="email"
               name="email"
-              unique
-              placeholder="Enter your Email"
+              value={user.email}
+              placeholder="Enter your email"
               onChange={handleChange} />
+              <Form.Control.Feedback type="invalid">
+                A name is required
+              </Form.Control.Feedback>        
             </Form.Group>
-</Form>
-<ReservationForm 
-reservations = {reservations}
-deleteResevation={deleteResevation}
-saveReservation={saveReservation}
-total={total}
-validated={validated}
- />
-</React.Fragment>
- 
-);
+        </Form>
+        <ReservationsTable 
+        reservations = {reservations}
+        deleteResevation={deleteResevation}
+        saveReservation={saveReservation}
+        total={total}
+        validated={validated}
+      />
+    </React.Fragment> 
+  );
 }

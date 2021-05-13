@@ -2,7 +2,7 @@ import React, {useState, useEffect  } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'; 
 import { Redirect } from 'react-router-dom';
-import CustomJumbotron from '../../UI/Carousel/Carousel';
+import CustomJumbotron from '../../components/UI/Carousel/Jumbotron';
 import './SearchForm.style.scss';
 
 
@@ -18,7 +18,6 @@ export default function SearchForm() {
   const [validUntil, setValidUntil] = useState("");
   const [error, setError] = useState("");
   const [alert, setAlert] = useState(false);
-
 
   useEffect(() => {
     try {
@@ -37,23 +36,19 @@ export default function SearchForm() {
     }
   }, [])
 
-
   const handleSearch = () => {
-    setIsLoading(true);
     if (fetchedRoutes.length !== 0) {
-      let uniq = fetchedRoutes.map(item => (item.routeInfo.to.name))
+      let unique = fetchedRoutes.map(item => (item.routeInfo.to.name))
         .filter((value, index, self) => self.indexOf(value) === index)
-      let options = uniq.map((route) => ({
+      let options = unique.map((route) => ({
         depature: route,
         destination: route,
       }));
       if (options.length !== 0) {
         setOptions(options);
-        setIsLoading(false);
       }
     }
   };
-
 
   const saveResults = (event) => {
     event.preventDefault();
@@ -78,7 +73,6 @@ export default function SearchForm() {
 
   return(
     <Container>
-     
       <CustomJumbotron>
       {alert ?
       <Alert variant="info" className="customAlert">

@@ -11,8 +11,8 @@ function Filters(props) {
   const searchResults = props.location.state.results;
   const validUntil = props.location.state.validUntil;
 
-  const [title, setTitle] = useState("Filters")
-  const [state, dispatch] = useReducer(reducer, searchResults)
+  const [title, setTitle] = useState("Filters");
+  const [state, dispatch] = useReducer(reducer, searchResults);
  
   function  sort_by_price_asc() {
     dispatch({ type: 'sort_by_price_asc'  });
@@ -35,9 +35,8 @@ function Filters(props) {
   }
 
   const filter_by_name =( value, query) => {
-    dispatch({ type: 'filter_by_name',payload: {value, query} });  
+    dispatch({ type: 'filter_by_name',payload: {value, query}});  
   }
-
 
 return(
     <Container style={{backgroundColor: "black"}}>

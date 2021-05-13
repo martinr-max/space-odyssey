@@ -1,22 +1,18 @@
 .searchContainer {
     margin-top: 12px;
-
     .card {
         margin-bottom: 15px;
     }
-
     .card-body {
         position: relative;
         display: flex;
         flex-direction: column;
         align-items: baseline;
-
         .card-header {
             width: 100%;
             text-align: start;
             background-color: antiquewhite;
         }
-
         .add_to_card_btn {
             position: absolute;
             align-self: flex-end;
@@ -24,9 +20,6 @@
             margin-right: 30px;
             flex-direction: column;
             display: flex;
-
         }
     }
-
-    
 }
