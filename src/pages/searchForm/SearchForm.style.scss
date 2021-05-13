@@ -6,7 +6,7 @@
 
 .searchForm {
     background-color:  whitesmoke;
-    max-width: 50%;
+    max-width: 60%;
     height: 17rem;
     display: flex;
     flex-direction: column;
@@ -14,11 +14,11 @@
     padding: 40px;
     border-radius: 5px;
     margin: 0 auto;
-    
+    position: relative;
+    top: 50px;
     .search_title {
       margin-bottom: 30px;
   }
-  
   .form-control {
     margin-top: 12px;
     margin-bottom: 12px;

@@ -6,15 +6,12 @@
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: -12px;
-
     .tickets {
         margin-left: 12px;
     }
-
     .spacer {
         flex: 1 1 auto;
     }
-
     .resevation_header_right {
         display: flex;
         flex-direction: row;
@@ -39,6 +36,7 @@
         .card-header {
             width: 100%;
             text-align: start;
+            background-color: antiquewhite;
         }
     }
 

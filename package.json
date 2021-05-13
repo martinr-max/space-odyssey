@@ -9,6 +9,8 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "date-fns": "^2.17.0",
+    "g": "^2.0.1",
+    "heroku": "^7.53.1",
     "moment": "^2.29.1",
     "node-sass": "^4.14.1",
     "node-uuid": "^1.4.8",
@@ -32,7 +34,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-    
   },
   "eslintConfig": {
     "extends": [

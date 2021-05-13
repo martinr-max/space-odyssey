@@ -33,8 +33,10 @@ export default function SearchForm() {
       fetchRoutes();
     } catch (err) {
       setError(err.message);
+      
     }
   }, [])
+  console.log("tere" + error)
 
   const handleSearch = () => {
     if (fetchedRoutes.length !== 0) {
@@ -73,6 +75,9 @@ export default function SearchForm() {
 
   return(
     <Container>
+      {error ? <Alert variant="info">
+        {error}
+      </Alert>: null}
       <CustomJumbotron>
       {alert ?
       <Alert variant="info" className="customAlert">

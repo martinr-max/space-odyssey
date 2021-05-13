@@ -10,8 +10,8 @@ export default function Reservations() {
     
     useEffect(() => {
       const savedReservations = JSON.parse(localStorage.getItem("savedReservations"));
-      let reducedArry = savedReservations.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr))
-      setReservations(reducedArry)
+      let reducedArry = savedReservations.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr));
+      setReservations(reducedArry);
     }, [])
 
 return(

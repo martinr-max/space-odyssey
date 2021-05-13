@@ -3,8 +3,11 @@ import { Navbar, Form, FormControl, DropdownButton, Dropdown, Container } from '
 import SearchResults from '../searchResults/SearchResults.component';
 import { useReducer } from 'react';
 import { useState } from 'react';
-import "./Filter.styles.scss";
 import { reducer } from '../../filterReducer/FilterReducer.reducer';
+import  propTypes  from 'prop-types';
+import "./Filter.styles.scss";
+
+
 
 function Filters(props) {
 
@@ -62,3 +65,8 @@ return(
 } 
 
 export default React.memo(Filters);
+
+Filters.propTypes = {
+  searchResults: propTypes.array,
+  validUntil: propTypes.string
+}
