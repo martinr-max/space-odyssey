@@ -1,0 +1,23 @@
+.customForm {
+    background-color:  whitesmoke;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 5px;
+    margin: 0 auto;
+
+    .form-title {
+        display: flex;
+        align-self: flex-start;
+    }
+
+    .custom_formGroup {
+        display: flex;
+        align-items: center;
+        margin-left: 30px;
+        input {
+            max-width: 60%;
+            margin-left: 13px;
+        }
+    }
+}

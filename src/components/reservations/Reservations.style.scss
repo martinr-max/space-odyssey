@@ -1,0 +1,48 @@
+.reservationform-card {
+    background-color: whitesmoke;
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 3px;
+
+    .reservationform-body {
+        padding: 13px;
+        margin-left: 20px;
+        position: relative;
+        .reservationHeader {
+            background-color: antiquewhite;
+            margin-bottom: 10px;
+            padding: 13px;
+            display: flex;
+            flex-direction: row;
+            .spacer {
+                flex: 1 1 auto;
+            }
+        }
+        .reserv-user-info {
+            background-color: antiquewhite;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 40px;
+            margin-bottom: 20px;
+        }
+        .flight-info {
+            background-color: antiquewhite;
+            margin-bottom: 20px;
+            width: 60pc;
+            padding: 40px;
+        }
+}
+
+
+
+    
+
+}
+
+
+

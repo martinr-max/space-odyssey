@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import {Route, BrowserRouter as Router} from 'react-router-dom';
+import { Container } from 'react-bootstrap';
+import Filters from './components/filters/Filter.component';
+import MyNavBar from './navigation/navBar/NavBar.component';
+import Footer from './components/footer/Footer.component';
+import Reservations from './components/reservations/Reservations.component';
+import SearchForm from './components/searchForm/SearchForm.component';
+import RegistretionForm from './components/login/Registration/RegistrationForm.component';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className="App">
+      <Router>
+      <MyNavBar />
+        <Route path="/" exact component={SearchForm} />
+        <Route path="/results" component={Filters} />
+        <Route path="/reservForm" component={RegistretionForm} />
+        <Route path="/userReservations" component={Reservations} />
+
+        <Footer />
+      </Router>
+    </Container>
   );
 }
 

@@ -1,0 +1,27 @@
+.customAlert {
+  margin-top: 10px;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.searchForm {
+    background-color:  whitesmoke;
+    max-width: 50%;
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    padding: 40px;
+    border-radius: 5px;
+    margin: 0 auto;
+    
+    .search_title {
+      margin-bottom: 30px;
+  }
+  
+  .form-control {
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+}
+

@@ -5,6 +5,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./images/19221.jpg") !important;
+  background-size: cover;
+  
+
+
+}
+image {
+  opacity: 0.5;
+}
+
+a:hover {
+  color: white !important;
 }
 
 code {

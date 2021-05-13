@@ -1,0 +1,30 @@
+.custom_navbar {
+
+    background-color: black;
+    a {
+        color: white;
+        font-size: 20px;
+        text-transform: uppercase;
+        margin-right: 17px;
+        
+    }
+
+    &:hover {
+        color:none !important;
+    }
+
+    .custom_title {
+        color: white !important;
+        margin-left: 12px;
+        font-weight: bold;
+        font-size: 30px;
+    }
+    .spacer {
+        flex: 1 1 auto;
+    }
+    
+    .navbar-collapse {
+        flex-grow: 0 !important;
+    }
+
+}

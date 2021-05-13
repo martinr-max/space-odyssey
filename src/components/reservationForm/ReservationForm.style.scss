@@ -1,0 +1,54 @@
+.reservation_header {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: -12px;
+
+    .tickets {
+        margin-left: 12px;
+    }
+
+    .spacer {
+        flex: 1 1 auto;
+    }
+
+    .resevation_header_right {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+
+        .total_price {
+            margin-right: 13px;
+        }
+
+        button {
+            background-color: transparent;
+            border-color: white;
+        }
+    }
+}
+
+.card {
+    margin-top: 15px;
+
+    .card-body {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+    
+        .card-header {
+            width: 100%;
+            text-align: start;
+        }
+    }
+
+} 
+
+.no_booking_statement {
+    color: white;
+    padding-bottom: 20px;
+}
