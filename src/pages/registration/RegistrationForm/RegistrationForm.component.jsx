@@ -125,7 +125,7 @@ export default function RegistretionForm() {
                 A last name is required
               </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group className="custom_formGroup" controlId="firstName">
+          <Form.Group className="custom_formGroup" controlId="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
               required
@@ -136,7 +136,7 @@ export default function RegistretionForm() {
               placeholder="Enter your email"
               onChange={handleChange} />
               <Form.Control.Feedback type="invalid">
-                A name is required
+                A email is required
               </Form.Control.Feedback>        
             </Form.Group>
         </Form>
