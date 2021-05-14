@@ -33,7 +33,6 @@ export default function SearchForm() {
       fetchRoutes();
     } catch (err) {
       setError(err.message);
-      
     }
   }, [])
 

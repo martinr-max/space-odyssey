@@ -10,16 +10,16 @@ export default function ReservationsTable({
    deleteResevation,
    reservations,
    total,
-   validated }) {  
+    }) {  
 
   return(
     <Container style={{backgroundColor: "black", paddingBottom: "20px"}}>
         <div className="reservation_header">
-          <h4 className="tickets">Your  Tickets:  </h4>
+          <h4 className="bookings">Your  Bookings:  </h4>
           <div className="spacer"></div>
             <div className="resevation_header_right">
               <h4 className="total_price"> Total Fare: $ {total} </h4>
-              <Button disabled={!validated} type="submit" onClick={saveReservation}>
+              <Button  type="submit" onClick={saveReservation}>
                 Save Reservations
               </Button>
             </div>

@@ -6,8 +6,9 @@
     padding-top: 20px;
     padding-bottom: 20px;
     margin-bottom: -12px;
-    .tickets {
+    .bookings {
         margin-left: 12px;
+        text-transform: uppercase;
     }
     .spacer {
         flex: 1 1 auto;
@@ -39,7 +40,6 @@
             background-color: antiquewhite;
         }
     }
-
 } 
 
 .no_booking_statement {

@@ -61,7 +61,7 @@ export default function SearchResults({
         <Container className="searchContainer">
            {alert ?
               <Alert variant="success">
-                Booking was successful. To see your bookings:  <Alert.Link href="/reservForm">Tickets</Alert.Link>
+                Booking was successful. To see your bookings:  <Alert.Link href="/reservForm">Bookings</Alert.Link>
               </Alert> : null}
           {searchResults.map( route => {
             return route.providers.map(pro => {

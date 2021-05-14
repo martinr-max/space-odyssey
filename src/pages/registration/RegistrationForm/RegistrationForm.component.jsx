@@ -26,28 +26,18 @@ const findFareTotal = (query) => {
 
 export default function RegistretionForm() {
 
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: ""
-  });
-  
+  const [user, setUser] = useState({firstName: "",lastName: "",email: ""});
   const [validated, setValidated] = useState(false);
+  const [isValid, setIsvalid] = useState(false);
   const [total, setTotal] = useState();
   const [reservations, setReservations] = useState();
   const history = useHistory();
 
-  const handleChange = (event) => {
+  const handleChange = (event) => { 
     setUser(values => ({
       ...values,
       [event.target.name]: event.target.value
-    }));
-
-    if(user.lastName
-       && user.firstName
-       && user.email !== 0 
-       && reservations.length !== 0)
-      setValidated(true);
+    }));    
   }
    
   useEffect(() => {
@@ -62,7 +52,7 @@ export default function RegistretionForm() {
   }, [reservations])
    
   const deleteResevation = (reservationId) => {
-    const oldArray = sessionStorage.getItem('reservations') ? sessionStorage.getItem('reservations') : "[]";
+    const oldArray = sessionStorage.getItem('reservations') ? sessionStorage.getItem('reservations') : [];
     const reservationsArray = JSON.parse(oldArray);
     let deletedBooking = reservationsArray.map(r => r.filter(m => m.reservationId !== reservationId))
     reservationsArray.splice(deletedBooking, 1);
@@ -72,6 +62,18 @@ export default function RegistretionForm() {
   
   const saveReservation = (event) => {
     event.preventDefault();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    }
+    setValidated(true);
+    if (user.firstName &&
+        user.lastName &&
+        user.email !== ""
+    ) {
+      setIsvalid(true);
+    }
+    if(validated && isValid) {
     const reservationId = UUID.v1()
     const saveReservation = [{
       reserv: reservations,
@@ -79,8 +81,7 @@ export default function RegistretionForm() {
       total: total,
       reservationId: reservationId
     }]
-    if (user) {
-      const oldArray = localStorage.getItem('savedReservations') ? localStorage.getItem('savedReservations') : "[]";
+      const oldArray = localStorage.getItem('savedReservations') ? localStorage.getItem('savedReservations') : [];
       if (oldArray.length !== 0) {
         const reservationsArray = JSON.parse(oldArray);
         reservationsArray.push(saveReservation);
@@ -95,7 +96,7 @@ export default function RegistretionForm() {
 
   return(
     <React.Fragment>
-      <Form className="customForm" noValidate validated={validated} onSubmit={saveReservation}>
+      <Form className="customForm" noValidate validated={validated}>
         <h4 className="form-title"> User Details: </h4>
           <Form.Group className="custom_formGroup" controlId="firstName">
             <Form.Label>First name</Form.Label>
