@@ -29,7 +29,7 @@ export default function RegistretionForm() {
   const [user, setUser] = useState({firstName: "",lastName: "",email: ""});
   const [validated, setValidated] = useState(false);
   const [isValid, setIsvalid] = useState(false);
-  const [total, setTotal] = useState();
+  const [total, setTotal] = useState(0);
   const [reservations, setReservations] = useState();
   const history = useHistory();
 
@@ -43,14 +43,18 @@ export default function RegistretionForm() {
   useEffect(() => {
     const fetchedReservations = JSON.parse(sessionStorage.getItem("reservations")) || [];
     setReservations(fetchedReservations);
+   
+
   }, [])
-  
+
   useEffect(() => {
-    if (reservations) {
+    if(reservations && reservations.length)  {
       setTotal(findFareTotal(reservations));
     }
+
   }, [reservations])
-   
+
+     
   const deleteResevation = (reservationId) => {
     const oldArray = sessionStorage.getItem('reservations') ? sessionStorage.getItem('reservations') : [];
     const reservationsArray = JSON.parse(oldArray);
@@ -70,10 +74,12 @@ export default function RegistretionForm() {
     if (user.firstName &&
         user.lastName &&
         user.email !== ""
+      
     ) {
       setIsvalid(true);
     }
-    if(validated && isValid) {
+    console.log(total && total)
+    if(validated && isValid   && total && total !== 0) {
     const reservationId = UUID.v1()
     const saveReservation = [{
       reserv: reservations,
