@@ -82,22 +82,25 @@ export default function RegistretionForm() {
     ) {
       setIsvalid(true);
     }
-    if(validated && isValid   && total && total !== 0) {
     const reservationId = UUID.v1()
-    const saveReservation = [{
+    const saveReservation =[{
       reserv: reservations,
       user: user,
       total: total,
       reservationId: reservationId
     }]
+    if(validated && isValid   && total && total !== 0) {
+
       const oldArray = localStorage.getItem('savedReservations') ? localStorage.getItem('savedReservations') : [];
-      if (oldArray.length !== 0) {
+      if (oldArray.length > 1) {
         const reservationsArray = JSON.parse(oldArray);
         reservationsArray.push(saveReservation);
         localStorage.setItem('savedReservations', JSON.stringify(reservationsArray));
         history.push('/lastPage');
       } else {
-        localStorage.setItem('savedReservations', JSON.stringify(saveReservation));
+        oldArray.push(saveReservation)
+        localStorage.setItem('savedReservations', JSON.stringify(oldArray));
+
         history.push('/lastPage');
       }
     }

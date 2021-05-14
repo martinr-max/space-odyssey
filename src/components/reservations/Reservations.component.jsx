@@ -10,25 +10,27 @@ export default function Reservations() {
     
     useEffect(() => {
       const savedReservations = JSON.parse(localStorage.getItem("savedReservations")) || [];
-      let reducedArry = savedReservations.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr));
+      console.log(savedReservations)
+           let reducedArry = savedReservations.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr));
+      
       setReservations(reducedArry);
     }, [])
 
 return(
     <Container style={{backgroundColor: "black"}}>
-     {reservations && reservations.lenth !==0 ?
+     {reservations && reservations.length ?
       reservations.map(r => {
        return <Card key={r.reservationId} className="reservationform-card">
                 <div className="reservationform-body">
                 <div className="reserv-user-info">
-                    <h4>User Info: </h4>
+                    <h5>User Info: </h5>
                     <p><strong>Name: </strong>{r.user.firstName} {r.user.lastName}</p>
                     <p><strong>Email: </strong>{r.user.email} </p>
                     </div>
                     <Card.Header className="reservationHeader">
-                        <h4 style={{padding: "13px"}}>Bookings: </h4>
+                        <h5 style={{padding: "13px"}}>Bookings: </h5>
                         <div className="spacer"></div>
-                        <h4 style={{padding: "13px"}}>Total Fare: $ {r.total} </h4>
+                        <h5 style={{padding: "13px"}}>Total Fare: $ {r.total} </h5>
                     </Card.Header>
                     {r.reserv.map((p ) => {
                          return p.map(array => {
