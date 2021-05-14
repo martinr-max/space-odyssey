@@ -21,7 +21,7 @@ const findFareTotal = (query) => {
     })
     let total = prices.reduce(reducer);
     return total;
-  }
+  } 
 }
 
 export default function RegistretionForm() {
@@ -60,8 +60,13 @@ export default function RegistretionForm() {
     const reservationsArray = JSON.parse(oldArray);
     let deletedBooking = reservationsArray.map(r => r.filter(m => m.reservationId !== reservationId))
     reservationsArray.splice(deletedBooking, 1);
+    if(reservationsArray && reservationsArray.length === 1) {
+      sessionStorage.removeItem("reservations");
+    }
     sessionStorage.setItem("reservations", JSON.stringify(reservationsArray));
     setReservations(reservationsArray);
+    setTotal(0);
+   
   }
   
   const saveReservation = (event) => {
@@ -74,11 +79,9 @@ export default function RegistretionForm() {
     if (user.firstName &&
         user.lastName &&
         user.email !== ""
-      
     ) {
       setIsvalid(true);
     }
-    console.log(total && total)
     if(validated && isValid   && total && total !== 0) {
     const reservationId = UUID.v1()
     const saveReservation = [{

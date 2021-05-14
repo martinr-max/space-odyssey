@@ -44,7 +44,6 @@ function Filters(props) {
 return(
     <Container style={{backgroundColor: "black"}}>
       <Navbar className="filter_navbar">
-        {console.count("1")}
         <Form inline>
           <FormControl
             type="text"
