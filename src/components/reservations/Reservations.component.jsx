@@ -1,20 +1,14 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { Container, Card } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 import { toLocalTime } from '../searchResults/SearchResults.component';
 import "./Reservations.style.scss";
 
 
 export default function Reservations() {
   
-    const [reservations, setReservations] = useState();
-    
-    useEffect(() => {
-      const savedReservations = JSON.parse(localStorage.getItem("savedReservations")) || [];
-      console.log(savedReservations)
-           let reducedArry = savedReservations.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr));
-      
-      setReservations(reducedArry);
-    }, [])
+    let reserv = useSelector(state => state.searchResults.savedBookings);
+    let reservations = reserv.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr));
 
 return(
     <Container style={{backgroundColor: "black"}}>

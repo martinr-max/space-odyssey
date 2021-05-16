@@ -3,14 +3,16 @@ import { Button, Card, Container } from 'react-bootstrap';
 import { toLocalTime } from '../searchResults/SearchResults.component';
 import  propTypes  from 'prop-types';
 import "./ReservationsTable.style.scss";
+import { useSelector } from 'react-redux';
 
 
-export default function ReservationsTable({
+function ReservationsTable({
    saveReservation,
    deleteResevation,
-   reservations,
    total,
     }) {  
+  
+  const reservations = useSelector(state => state.searchResults.addedBookings)
 
   return(
     <Container style={{backgroundColor: "black", paddingBottom: "20px"}}>
@@ -25,7 +27,7 @@ export default function ReservationsTable({
             </div>
         </div>
         { reservations && reservations.length !== 0 ?
-        <div> {reservations.map(reserv => {
+        <div> {reservations && reservations.map(reserv => {
           return reserv.map(m => {
             return <Card key={m.id} className="result_card">
                  <Card.Body className="search_body">
@@ -38,7 +40,11 @@ export default function ReservationsTable({
                      <p> <strong>Price:</strong>  {pro.price}</p>
                      <p> <strong>Start:</strong> {toLocalTime(pro.flightStart)} </p>
                      <p> <strong>End:</strong> {toLocalTime(pro.flightEnd)} </p>  
-                     <Button className="btn btn-danger" onClick={() => deleteResevation(m.reservationId)}> Remove booking </Button>
+                     <Button 
+                      className="btn btn-danger"
+                      onClick={(e) => {e.preventDefault()
+                        deleteResevation(m.reservationId)}}> Remove booking
+                    </Button>
                     </div>
                 })} 
               </Card.Body>
@@ -56,3 +62,4 @@ ReservationsTable.propTypes = {
   total: propTypes.number,
   validated: propTypes.bool
 }
+export default React.memo(ReservationsTable)

@@ -1,6 +1,7 @@
 import React, {useState, useEffect  } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'; 
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import CustomJumbotron from '../../components/UI/Carousel/Jumbotron';
 import './SearchForm.style.scss';
@@ -13,11 +14,12 @@ export default function SearchForm() {
   const [depature, setDepature] = useState([]);
   const [destination, setDestination] = useState([]);
   const [fetchedRoutes, setRoutes] = useState();
-  const [searchedResults, setSearchedResults] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [validUntil, setValidUntil] = useState("");
   const [error, setError] = useState("");
   const [alert, setAlert] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     try {
@@ -59,12 +61,13 @@ export default function SearchForm() {
       return route.routeInfo.from.name === depature[0].depature &&
         route.routeInfo.to.name === destination[0].destination
     })
-    if (results.length === 0) {
-      setAlert(true);
-      setRedirect(false);
-      return;
+      if (results.length === 0) {
+        console.log(results.length)
+        setAlert(true);
+        setRedirect(false);
+        return;
     } else {
-      setSearchedResults(results)
+      dispatch({type: "returnSearchResults", results: results, validUntil: validUntil})
       setRedirect(true);
     }
   }
@@ -114,7 +117,7 @@ export default function SearchForm() {
         {redirect && !error &&
             <Redirect to={{
               pathname: '/results',
-              state: { results: searchedResults, validUntil: validUntil }
+              state: { validUntil: validUntil }
             }} />
         }  
       </CustomJumbotron>

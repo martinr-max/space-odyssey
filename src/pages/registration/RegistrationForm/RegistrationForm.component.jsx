@@ -1,10 +1,11 @@
 import React from 'react';
-import { Form } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import './RegistrationForm.style.scss';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import {default as UUID} from "node-uuid";
 import ReservationsTable from '../../../components/reservationsTable/ReservationsTable.component';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const findFareTotal = (query) => {
@@ -30,8 +31,10 @@ export default function RegistretionForm() {
   const [validated, setValidated] = useState(false);
   const [isValid, setIsvalid] = useState(false);
   const [total, setTotal] = useState(0);
-  const [reservations, setReservations] = useState();
   const history = useHistory();
+
+  const reservations = useSelector(state => state.searchResults.addedBookings);
+  const dispatch = useDispatch()
 
   const handleChange = (event) => { 
     setUser(values => ({
@@ -39,35 +42,17 @@ export default function RegistretionForm() {
       [event.target.name]: event.target.value
     }));    
   }
-   
-  useEffect(() => {
-    const fetchedReservations = JSON.parse(sessionStorage.getItem("reservations")) || [];
-    setReservations(fetchedReservations);
-   
-
-  }, [])
-
-  useEffect(() => {
-    if(reservations && reservations.length)  {
-      setTotal(findFareTotal(reservations));
-    }
-
+  
+  useEffect(() =>{
+    let findTotal = findFareTotal(reservations)
+    setTotal(findTotal);
   }, [reservations])
-
-     
-  const deleteResevation = (reservationId) => {
-    const oldArray = sessionStorage.getItem('reservations') ? sessionStorage.getItem('reservations') : [];
-    const reservationsArray = JSON.parse(oldArray);
-    let deletedBooking = reservationsArray.map(r => r.filter(m => m.reservationId !== reservationId))
-    reservationsArray.splice(deletedBooking, 1);
-    if(reservationsArray && reservationsArray.length === 1) {
-      sessionStorage.removeItem("reservations");
-    }
-    sessionStorage.setItem("reservations", JSON.stringify(reservationsArray));
-    setReservations(reservationsArray);
-    setTotal(0);
+ 
    
+  const deleteResevation =  (reservationId) => {
+    dispatch({type: "removeBooking", reservationId: reservationId  })
   }
+
   
   const saveReservation = (event) => {
     event.preventDefault();
@@ -83,31 +68,22 @@ export default function RegistretionForm() {
       setIsvalid(true);
     }
     const reservationId = UUID.v1()
-    const saveReservation =[{
+    const savedReservations =[{
       reserv: reservations,
       user: user,
       total: total,
       reservationId: reservationId
     }]
-    if(validated && isValid   && total && total !== 0) {
-
-      const oldArray = localStorage.getItem('savedReservations') ? localStorage.getItem('savedReservations') : [];
-      if (oldArray.length > 1) {
-        const reservationsArray = JSON.parse(oldArray);
-        reservationsArray.push(saveReservation);
-        localStorage.setItem('savedReservations', JSON.stringify(reservationsArray));
-        history.push('/lastPage');
-      } else {
-        oldArray.push(saveReservation)
-        localStorage.setItem('savedReservations', JSON.stringify(oldArray));
-
-        history.push('/lastPage');
-      }
+    if(validated && isValid && total && total !== 0) {
+      dispatch({type: "saveBookings", savedReservations: savedReservations})
+      history.push('/lastPage');
+     
     }
   }
 
   return(
-    <React.Fragment>
+    <Container>
+
       <Form className="customForm" noValidate validated={validated}>
         <h4 className="form-title"> User Details: </h4>
           <Form.Group className="custom_formGroup" controlId="firstName">
@@ -160,6 +136,6 @@ export default function RegistretionForm() {
         total={total}
         validated={validated}
       />
-    </React.Fragment> 
+    </Container> 
   );
 }

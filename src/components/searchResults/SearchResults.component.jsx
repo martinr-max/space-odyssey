@@ -5,6 +5,7 @@ import "./SearchResults.style.scss";
 import moment from 'moment';
 import {default as UUID} from "node-uuid";
 import  propTypes  from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const toLocalTime = (datetime) => {
   return new Date(datetime)
@@ -19,13 +20,13 @@ export const toLocalTime = (datetime) => {
 export const now = toLocalTime(moment());
 
 
-export default function SearchResults({
-  searchResults,
-  validUntil
-}) {
+function SearchResults() {
 
   const [alert, setAlert] = useState(false);
+  const searchResults =useSelector(state=> state.searchResults.filteredResults);
+  const validUntil = useSelector(state=> state.searchResults.validUntil);
 
+  const dispatch = useDispatch()
   const bookTicket = (providerId) => {
     setAlert(true)
     let reservations = searchResults.reduce((newArray, {
@@ -47,12 +48,8 @@ export default function SearchResults({
       return newArray;
       
     }, []);
-    if (reservations.length !== 0) {
-      const oldArray = sessionStorage.getItem('reservations') ? sessionStorage.getItem('reservations') : "[]";
-      const reservationsArray = JSON.parse(oldArray);
-      reservationsArray.push(reservations);
-      sessionStorage.setItem('reservations', JSON.stringify(reservationsArray));
-    }
+      dispatch({type: "bookTicket", reservations: reservations})
+      
   }
   
   return(
@@ -97,3 +94,5 @@ SearchResults.propTypes = {
   searchResults: propTypes.array,
   validUntil: propTypes.string
 }
+
+export default SearchResults

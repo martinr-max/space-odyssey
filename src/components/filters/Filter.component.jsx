@@ -1,21 +1,18 @@
 import React from 'react';
 import { Navbar, Form, FormControl, DropdownButton, Dropdown, Container } from 'react-bootstrap';
 import SearchResults from '../searchResults/SearchResults.component';
-import { useReducer } from 'react';
 import { useState } from 'react';
-import { reducer } from '../../filterReducer/FilterReducer.reducer';
 import  propTypes  from 'prop-types';
 import "./Filter.styles.scss";
+import { useDispatch } from 'react-redux';
 
 
 
-function Filters(props) {
+function Filters() {
 
-  const searchResults = props.location.state.results;
-  const validUntil = props.location.state.validUntil;
+  const dispatch = useDispatch()
 
   const [title, setTitle] = useState("Filters");
-  const [state, dispatch] = useReducer(reducer, searchResults);
  
   function  sort_by_price_asc() {
     dispatch({ type: 'sort_by_price_asc'  });
@@ -37,8 +34,9 @@ function Filters(props) {
     setTitle("Earlier first");
   }
 
-  const filter_by_name =( value, query) => {
-    dispatch({ type: 'filter_by_name',payload: {value, query}});  
+  const filter_by_name =(value) => {
+    dispatch({type: "filter", value: value})
+    
   }
 
 return(
@@ -47,7 +45,7 @@ return(
         <Form inline>
           <FormControl
             type="text"
-            onChange={(event) => filter_by_name(event.target.value, [...searchResults])}
+            onChange={(event) => filter_by_name(event.target.value)}
             placeholder="Filter by company name"
             className=" mr-sm-2" />
         </Form>
@@ -58,12 +56,12 @@ return(
           <Dropdown.Item value='distance' onClick={sort_by_time_desc}>Later first</Dropdown.Item>
         </DropdownButton>
       </Navbar>
-      <SearchResults searchResults={state} validUntil={validUntil} />
+      <SearchResults   />
     </Container>
   );
 } 
 
-export default React.memo(Filters);
+export default Filters;
 
 Filters.propTypes = {
   searchResults: propTypes.array,
