@@ -15,10 +15,8 @@ const findFareTotal = (query) => {
       return p.map(r => {
           return r.providers.map(p => {
               return p.price
-            })
-            .reduce(reducer)
-        })
-        .reduce(reducer)
+            }).reduce(reducer)
+        }).reduce(reducer)
     })
     let total = prices.reduce(reducer);
     return total;
@@ -34,7 +32,7 @@ export default function RegistretionForm() {
   const history = useHistory();
 
   const reservations = useSelector(state => state.searchResults.addedBookings);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleChange = (event) => { 
     setUser(values => ({
@@ -48,12 +46,10 @@ export default function RegistretionForm() {
     setTotal(findTotal);
   }, [reservations])
  
-   
   const deleteResevation =  (reservationId) => {
     dispatch({type: "removeBooking", reservationId: reservationId  })
   }
 
-  
   const saveReservation = (event) => {
     event.preventDefault();
     const form = event.currentTarget;
@@ -77,13 +73,11 @@ export default function RegistretionForm() {
     if(validated && isValid && total && total !== 0) {
       dispatch({type: "saveBookings", savedReservations: savedReservations})
       history.push('/lastPage');
-     
     }
   }
 
   return(
     <Container>
-
       <Form className="customForm" noValidate validated={validated}>
         <h4 className="form-title"> User Details: </h4>
           <Form.Group className="custom_formGroup" controlId="firstName">
