@@ -41,7 +41,7 @@ export default function SearchForm() {
   const handleSearch = () => {
     if (fetchedRoutes.length !== 0) {
       let unique = fetchedRoutes.map(item => (item.routeInfo.to.name))
-        .filter((value, index, self) => self.indexOf(value) === index)
+        .filter((value, index, self) => self.indexOf(value) === index);
       let options = unique.map((route) => ({
         depature: route,
         destination: route,
@@ -69,7 +69,6 @@ export default function SearchForm() {
       dispatch({type: "RETURN_SEARCH_RESULTS", results: results, validUntil: validUntil})
       setRedirect(true);
     }
-
   }
 
   const filterBy = () => true;

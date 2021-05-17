@@ -15,7 +15,8 @@ const searchResultsReducer = (state = initialState, action) => {
         ...state,
         searchResults: action.results,
         filtered: action.results,
-        validUntil: action.validUntil
+        validUntil: action.validUntil,
+        addedBookings: state.addedBookings
       }
     }
     else if (action.type === searchActionsTypes.FILTER_BY_NAME) {
@@ -64,7 +65,7 @@ const searchResultsReducer = (state = initialState, action) => {
     else if (action.type === searchActionsTypes.REMOVE_BOOKING) {
       const addedBookingsArray = [...state.addedBookings];
       const array = addedBookingsArray.map(arr => arr.filter(m => m.reservationId !== action.reservationId));
-      state.addedBookings.splice(array, 1)
+      state.addedBookings.splice(array, 1);
       return {
         ...state,
         addedBookings: [...state.addedBookings],
@@ -73,7 +74,7 @@ const searchResultsReducer = (state = initialState, action) => {
     else if (action.type === searchActionsTypes.SAVE_BOOKINGS) {
       return {
         ...state,
-        savedBookings: [...state.savedBookings, action.savedReservations]
+        savedBookings: [...state.savedBookings, action.savedReservations],
       }
     }
     return state;

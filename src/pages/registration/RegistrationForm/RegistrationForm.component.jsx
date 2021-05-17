@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const findFareTotal = (query) => {
   const reducer = (firstArr, secondArr) => firstArr + secondArr;
-  if (query.length !== 0) {
+  if (query && query.length !== 0) {
     let prices = query.map(p => {
       return p.map(r => {
           return r.providers.map(p => {
@@ -20,7 +20,9 @@ const findFareTotal = (query) => {
     })
     let total = prices.reduce(reducer);
     return total;
-  } 
+  } else {
+    return null;
+  }
 }
 
 export default function RegistretionForm() {

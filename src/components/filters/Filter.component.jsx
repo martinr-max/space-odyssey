@@ -4,14 +4,13 @@ import SearchResults from '../searchResults/SearchResults.component';
 import { useState } from 'react';
 import  propTypes  from 'prop-types';
 import "./Filter.styles.scss";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 
 function Filters() {
 
-  const dispatch = useDispatch()
-  const searchResults = useSelector(state => state.searchResults.searchResults)
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("Filters");
  
   function  sort_by_price_asc() {
@@ -34,8 +33,8 @@ function Filters() {
     setTitle("Earlier first");
   }
 
-  const filter_by_name =(query, value) => {
-      dispatch({type: "FILTER_BY_NAME", query, value })
+  const filter_by_name = (value) => {
+      dispatch({type: "FILTER_BY_NAME", value })
   }
 
 return(
@@ -44,7 +43,7 @@ return(
         <Form inline>
           <FormControl
             type="text"
-            onChange={(event) => filter_by_name(searchResults, event.target.value)}
+            onChange={(event) => filter_by_name( event.target.value)}
             placeholder="Filter by company name"
             className=" mr-sm-2" />
         </Form>
