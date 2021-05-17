@@ -11,7 +11,7 @@ export function filterByName(query, value) {
       newArray.push({
         id,
         routeInfo,
-        providers: [...filteredProviders]
+        providers: filteredProviders
       });
     return newArray;
   }, []);
@@ -63,7 +63,7 @@ export function sortByTimeAsc(query) {
 }
 
 export function sortByPriceAsc(query) {
-  let filteredResults = query.reduce((newArray, {
+  const filteredResults = query.reduce((newArray, {
     id,
     routeInfo,
     providers
@@ -85,7 +85,7 @@ export function sortByPriceAsc(query) {
 }
 
 export function sortByPriceDesc(query) {
-  let filteredResults = query.reduce((newArray, {
+  const filteredResults = query.reduce((newArray, {
     id,
     routeInfo,
     providers
@@ -103,5 +103,5 @@ export function sortByPriceDesc(query) {
       });
     return newArray;
   }, [])
-  return [...filteredResults];
+  return [...filteredResults]
 }

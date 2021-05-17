@@ -62,14 +62,14 @@ export default function SearchForm() {
         route.routeInfo.to.name === destination[0].destination
     })
       if (results.length === 0) {
-        console.log(results.length)
         setAlert(true);
         setRedirect(false);
         return;
     } else {
-      dispatch({type: "returnSearchResults", results: results, validUntil: validUntil})
+      dispatch({type: "RETURN_SEARCH_RESULTS", results: results, validUntil: validUntil})
       setRedirect(true);
     }
+
   }
 
   const filterBy = () => true;

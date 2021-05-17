@@ -1,65 +1,67 @@
 import { filterByName, sortByTimeDesc, sortByTimeAsc, sortByPriceAsc, sortByPriceDesc } from "./filters.utils";
+import {searchActions} from '../actions/search.actions';
 
 const initialState = {
     searchResults: [],
     validUntil: "",
     addedBookings: [],
     savedBookings: [],
+    filtered: []
 }
-console.log(initialState)
+
 const searchResultsReducer = (state = initialState, action) => {
-    if (action.type === "returnSearchResults") {
+    if (action.type === searchActions.RETURN_SEARCH_RESULTS) {
       return {
         ...state,
         searchResults: action.results,
-        filteredResults: state.searchResults,
+        filtered: action.results,
         validUntil: action.validUntil
       }
     }
-    if (action.type === "filter") {
+    else if (action.type === searchActions.FILTER_BY_NAME) {
+        let filteredResults = filterByName(state.searchResults, action.value);
       return {
         ...state,
         searchResults: state.searchResults,
-        filteredResults: filterByName(state.searchResults, action.value),
+        filtered: filteredResults
       }
     }
-    if (action.type === "sort_by_time_desc") {
+   else if (action.type === searchActions.SORT_BY_TIME_DESC) {
       return {
         ...state,
         searchResults: state.searchResults,
-        filteredProducts: sortByTimeDesc(state.searchResults),
+        filtered: sortByTimeDesc(state.searchResults),
       }
     }
-    if (action.type === 'sort_by_price_asc') {
+    else if (action.type === searchActions.SORT_BY_PRICE_ASC) {
      return {
         ...state,
         searchResults: state.searchResults,
-        filteredResults: sortByPriceAsc(state.searchResults),
-
+        filtered: sortByPriceAsc(state.searchResults),
      }
     }
-    if (action.type === 'sort_by_price_desc') {
+    else if (action.type === searchActions.SORT_BY_PRICE_DESC) {
       return {
         ...state,
         searchResults: state.searchResults,
-        filteredResults: sortByPriceDesc(state.searchResults),
+        filtered: sortByPriceDesc(state.searchResults),
       }
     }
-    if (action.type === "sort_by_time_asc") {
-    
+    else if (action.type === searchActions.SORT_BY_TIME_ASC) {
       return {
         ...state,
-        filteredResults: sortByTimeAsc(state.searchResults),
+        searchResults: state.searchResults,
+        filtered: sortByTimeAsc(state.searchResults),
       }
     }
-    if (action.type === "bookTicket") {
+    else if (action.type === searchActions.BOOK_TICKET) {
       return {
         ...state,
         addedBookings: [...state.addedBookings, action.reservations],
         searchResults: state.searchResults,
       }
     }
-    if (action.type === "removeBooking") {
+    else if (action.type === searchActions.REMOVE_BOOKING) {
       const addedBookingsArray = [...state.addedBookings];
       const array = addedBookingsArray.map(arr => arr.filter(m => m.reservationId !== action.reservationId));
       state.addedBookings.splice(array, 1)
@@ -68,13 +70,13 @@ const searchResultsReducer = (state = initialState, action) => {
         addedBookings: [...state.addedBookings],
       }
     }
-    if (action.type === "saveBookings") {
+    else if (action.type === searchActions.SAVE_BOOKINGS) {
       return {
         ...state,
         savedBookings: [...state.savedBookings, action.savedReservations]
       }
     }
-    return state
+    return state;
 }
 
 export default searchResultsReducer;

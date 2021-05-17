@@ -6,6 +6,7 @@ import moment from 'moment';
 import {default as UUID} from "node-uuid";
 import  propTypes  from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export const toLocalTime = (datetime) => {
   return new Date(datetime)
@@ -23,12 +24,13 @@ export const now = toLocalTime(moment());
 function SearchResults() {
 
   const [alert, setAlert] = useState(false);
-  const searchResults =useSelector(state=> state.searchResults.filteredResults);
+  const searchResults =useSelector(state=> state.searchResults.filtered);
   const validUntil = useSelector(state=> state.searchResults.validUntil);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
   const bookTicket = (providerId) => {
-    setAlert(true)
+    setAlert(true);
     let reservations = searchResults.reduce((newArray, {
       id,
       routeInfo,
@@ -43,13 +45,11 @@ function SearchResults() {
           id,
           routeInfo,
           reservationId: reservationId,
-          providers: [...filteredProviders]
+          providers: filteredProviders
         });
       return newArray;
-      
     }, []);
-      dispatch({type: "bookTicket", reservations: reservations})
-      
+      dispatch({type: "BOOK_TICKET", reservations: reservations});
   }
   
   return(
@@ -58,7 +58,7 @@ function SearchResults() {
         <Container className="searchContainer">
            {alert ?
               <Alert variant="success">
-                Booking was successful. To see your bookings:  <Alert.Link href="/reservForm">Bookings</Alert.Link>
+                Booking was successful. To see your bookings:  <Link to="/reservForm">Bookings</Link>
               </Alert> : null}
           {searchResults.map( route => {
             return route.providers.map(pro => {

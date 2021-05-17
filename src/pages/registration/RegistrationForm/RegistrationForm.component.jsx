@@ -47,7 +47,7 @@ export default function RegistretionForm() {
   }, [reservations])
  
   const deleteResevation =  (reservationId) => {
-    dispatch({type: "removeBooking", reservationId: reservationId  })
+    dispatch({type: "REMOVE_BOOKING", reservationId: reservationId  })
   }
 
   const saveReservation = (event) => {
@@ -71,7 +71,7 @@ export default function RegistretionForm() {
       reservationId: reservationId
     }]
     if(validated && isValid && total && total !== 0) {
-      dispatch({type: "saveBookings", savedReservations: savedReservations})
+      dispatch({type: "SAVE_BOOKINGS", savedReservations: savedReservations})
       history.push('/lastPage');
     }
   }
