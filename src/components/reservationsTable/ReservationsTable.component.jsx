@@ -20,7 +20,7 @@ function ReservationsTable({
           <h4 className="bookings">Your  Bookings:  </h4>
           <div className="spacer"></div>
             <div className="resevation_header_right">
-              <h4 className="total_price"> Total Fare: $ { total && total} </h4>
+              <h4 className="total_price"> Total Fare: $ { total} </h4>
               <Button  type="submit" onClick={saveReservation}>
                 Save Reservations
               </Button>

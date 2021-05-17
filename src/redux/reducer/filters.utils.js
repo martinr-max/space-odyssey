@@ -33,7 +33,7 @@ export function sortByTimeDesc(query) {
       newArray.push({
         id,
         routeInfo,
-        providers: [...filteredProviders]
+        providers: filteredProviders
       });
     return newArray;
   }, [])
@@ -55,7 +55,7 @@ export function sortByTimeAsc(query) {
       newArray.push({
         id,
         routeInfo,
-        providers: [...filteredProviders]
+        providers: filteredProviders
       });
     return newArray;
   }, [])
@@ -63,7 +63,7 @@ export function sortByTimeAsc(query) {
 }
 
 export function sortByPriceAsc(query) {
-  const filteredResults = query.reduce((newArray, {
+  let filteredResults = query.reduce((newArray, {
     id,
     routeInfo,
     providers
@@ -77,7 +77,7 @@ export function sortByPriceAsc(query) {
       newArray.push({
         id,
         routeInfo,
-        providers: [...filteredProviders]
+        providers: filteredProviders
       });
     return newArray;
   }, [])
@@ -99,7 +99,7 @@ export function sortByPriceDesc(query) {
       newArray.push({
         id,
         routeInfo,
-        providers: [...filteredProviders]
+        providers: filteredProviders
       });
     return newArray;
   }, [])
