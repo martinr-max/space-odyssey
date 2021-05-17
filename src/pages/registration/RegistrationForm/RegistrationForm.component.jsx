@@ -21,7 +21,7 @@ const findFareTotal = (query) => {
     let total = prices.reduce(reducer);
     return total;
   } else {
-    return null;
+    return 0;
   }
 }
 
@@ -44,12 +44,15 @@ export default function RegistretionForm() {
   }
   
   useEffect(() =>{
-    let findTotal = findFareTotal(reservations)
+    let findTotal = findFareTotal(reservations);
     setTotal(findTotal);
   }, [reservations])
  
   const deleteResevation =  (reservationId) => {
-    dispatch({type: "REMOVE_BOOKING", reservationId: reservationId  })
+    dispatch({type: "REMOVE_BOOKING", reservationId: reservationId});
+    if(reservations.length === 0) {
+      setTotal(0);
+    }
   }
 
   const saveReservation = (event) => {

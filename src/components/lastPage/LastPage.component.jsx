@@ -3,8 +3,6 @@ import { Card, Container } from 'react-bootstrap';
 import './Lastpage.style.scss';
 import { FaSpaceShuttle } from "react-icons/fa";
 
-
-
 export default function LastPage() {
     return(
         <Container style={{position: "absolute"}}>

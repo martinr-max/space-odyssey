@@ -11,6 +11,7 @@ function ReservationsTable({
    deleteResevation,
    total,
     }) {  
+      console.log(total)
   
   const reservations = useSelector(state => state.searchResults.addedBookings)
 
