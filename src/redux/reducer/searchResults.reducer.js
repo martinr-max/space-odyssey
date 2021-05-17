@@ -6,7 +6,8 @@ const initialState = {
     validUntil: "",
     addedBookings: [],
     savedBookings: [],
-    filtered: []
+    filtered: [],
+    total: 0
 }
 
 const searchResultsReducer = (state = initialState, action) => {
@@ -55,6 +56,12 @@ const searchResultsReducer = (state = initialState, action) => {
         filtered: sortByTimeAsc(state.searchResults),
       }
     }
+    else if (action.type === searchActionsTypes.FIND_TOTAL) {
+      return {
+        ...state,
+        total: action.totalFare,
+      }
+    }
     else if (action.type === searchActionsTypes.BOOK_TICKET) {
       return {
         ...state,
@@ -79,5 +86,7 @@ const searchResultsReducer = (state = initialState, action) => {
     }
     return state;
 }
+
+
 
 export default searchResultsReducer;

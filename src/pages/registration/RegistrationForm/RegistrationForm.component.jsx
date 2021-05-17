@@ -30,10 +30,11 @@ export default function RegistretionForm() {
   const [user, setUser] = useState({firstName: "",lastName: "",email: ""});
   const [validated, setValidated] = useState(false);
   const [isValid, setIsvalid] = useState(false);
-  const [total, setTotal] = useState(0);
   const history = useHistory();
 
   const reservations = useSelector(state => state.searchResults.addedBookings);
+  const total = useSelector(state => state.searchResults.total);
+
   const dispatch = useDispatch();
 
   const handleChange = (event) => { 
@@ -45,14 +46,12 @@ export default function RegistretionForm() {
   
   useEffect(() =>{
     let findTotal = findFareTotal(reservations);
-    setTotal(findTotal);
-  }, [reservations])
+    dispatch({type: "FIND_TOTAL", totalFare: findTotal})
+  }, [reservations, dispatch])
  
   const deleteResevation =  (reservationId) => {
     dispatch({type: "REMOVE_BOOKING", reservationId: reservationId});
-    if(reservations.length === 0) {
-      setTotal(0);
-    }
+   
   }
 
   const saveReservation = (event) => {

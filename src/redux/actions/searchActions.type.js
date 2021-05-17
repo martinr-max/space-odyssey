@@ -8,4 +8,5 @@ export const searchActionsTypes = {
     SORT_BY_PRICE_DESC: "SORT_BY_PRICE_DESC",
     SORT_BY_TIME_ASC: "SORT_BY_TIME_ASC",
     SORT_BY_TIME_DESC: "SORT_BY_TIME_DESC",
+    FIND_TOTAL: "FIND_TOTAL"
 }

@@ -3,17 +3,15 @@ import { Button, Card, Container } from 'react-bootstrap';
 import { toLocalTime } from '../searchResults/SearchResults.component';
 import  propTypes  from 'prop-types';
 import "./ReservationsTable.style.scss";
-import { useSelector } from 'react-redux';
 
 
 function ReservationsTable({
    saveReservation,
    deleteResevation,
+   reservations,
    total,
     }) {  
-      console.log(total)
   
-  const reservations = useSelector(state => state.searchResults.addedBookings)
 
   return(
     <Container style={{backgroundColor: "black", paddingBottom: "20px"}}>
