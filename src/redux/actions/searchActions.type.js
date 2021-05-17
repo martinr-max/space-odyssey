@@ -1,4 +1,4 @@
-export const searchActions = {
+export const searchActionsTypes = {
     RETURN_SEARCH_RESULTS: "RETURN_SEARCH_RESULTS",
     BOOK_TICKET : "BOOK_TICKET",
     REMOVE_BOOKING: "REMOVE_BOOKING",
