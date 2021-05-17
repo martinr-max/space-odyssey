@@ -58,6 +58,7 @@ function ReservationsTable({
 ReservationsTable.propTypes = {
   saveReservation: propTypes.func,
   deleteResevation: propTypes.func,
+  reservations: propTypes.array,
   total: propTypes.number,
   validated: propTypes.bool
 }

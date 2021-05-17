@@ -7,13 +7,13 @@ import "./Reservations.style.scss";
 
 export default function Reservations() {
   
-    let reserv = useSelector(state => state.searchResults.savedBookings);
-    let reservations = reserv.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr));
+    let savedBookings = useSelector(state => state.searchResults.savedBookings);
+    let reducedReservations = savedBookings.map(r => r.reduce((firstArr, secondArr) => firstArr + secondArr));
 
 return(
     <Container style={{backgroundColor: "black"}}>
-     {reservations && reservations.length ?
-      reservations.map(r => {
+     {savedBookings && savedBookings.length ?
+      reducedReservations.map(r => {
        return <Card key={r.reservationId} className="reservationform-card">
                 <div className="reservationform-body">
                 <div className="reserv-user-info">
